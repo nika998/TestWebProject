@@ -4,4 +4,17 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <listener>
+  	<listener-class>it.engineering.web.listener.ContextListener</listener-class>
+  </listener>
+  <servlet>
+  	<servlet-name>FrontController</servlet-name>
+  	<display-name>FrontController</display-name>
+  	<description></description>
+  	<servlet-class>it.engineering.web.servlets.FrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FrontController</servlet-name>
+  	<url-pattern>/application/*</url-pattern>
+  </servlet-mapping>
 </web-app>
