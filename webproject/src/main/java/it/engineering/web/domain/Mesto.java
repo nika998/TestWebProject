@@ -37,4 +37,11 @@ public class Mesto implements Serializable {
 		this.pttBroj = pttBroj;
 	}
 
+	@Override
+	public String toString() {
+		return naziv;
+	}
+	
+	
+
 }

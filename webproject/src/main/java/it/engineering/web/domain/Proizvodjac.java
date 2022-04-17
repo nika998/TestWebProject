@@ -14,12 +14,14 @@ public class Proizvodjac implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String adresa;
-
-	private int maticniBroj;
-
-	private int mesto;
 	@Id
-	private int pib;
+	private String maticniBroj;
+
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "mesto")
+	private Mesto mesto;
+	
+	private String pib;
 
 	public Proizvodjac() {
 	}
@@ -32,28 +34,41 @@ public class Proizvodjac implements Serializable {
 		this.adresa = adresa;
 	}
 
-	public int getMaticniBroj() {
+	public String getMaticniBroj() {
 		return this.maticniBroj;
 	}
 
-	public void setMaticniBroj(int maticniBroj) {
+	public void setMaticniBroj(String maticniBroj) {
 		this.maticniBroj = maticniBroj;
 	}
 
-	public int getMesto() {
+	public Mesto getMesto() {
 		return this.mesto;
 	}
 
-	public void setMesto(int mesto) {
+	public void setMesto(Mesto mesto) {
 		this.mesto = mesto;
 	}
 
-	public int getPib() {
+	public String getPib() {
 		return this.pib;
 	}
 
-	public void setPib(int pib) {
+	public void setPib(String pib) {
 		this.pib = pib;
 	}
 
+<<<<<<< Updated upstream
+=======
+	public Proizvodjac(String maticniBroj, String pib, String adresa, Mesto mesto) {
+		super();
+		this.adresa = adresa;
+		this.maticniBroj = maticniBroj;
+		this.mesto = mesto;
+		this.pib = pib;
+	}
+	
+	
+
+>>>>>>> Stashed changes
 }

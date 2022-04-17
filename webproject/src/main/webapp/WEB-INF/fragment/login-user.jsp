@@ -5,52 +5,45 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
-.login{
+.headerContainer{
+  height: 6vh;
   display: flex;
-  background-color: #666;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #DAA520;
   overflow: hidden;
+  border-bottom: 4px solid white;
 }
 
-.topnav div {
-  flex: 1;
+.headerContainer div {
+  padding: 10px;
   float: left;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+  font-size: 7wv;
+  font-weight: bold;
 }
 
-.login:first-child {
-    margin-right: 20px;
-    
-} 
-
-a{
- float: left;
+#headerLink{
+  height: 30%;
+  margin: 5px 5px;
+  border-radius: 10px;
+  float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 4px 16px;
   text-decoration: none;
-  font-size: 17px;
 
 }
 
- a:hover {
-  background-color: #ddd;
+#headerLink:hover {
+  background-color: #CD5C5C;
   color: black;
 }
-
-p{
-font-size: 17px;
-    color: #f2f2f2;
-vertical-align: middle; 
-  text-align: center; 
-}
-
 </style>
-<div class="login">
-	<div><p>Prijavljeni ste kao: ${sessionScope.loginUser.username}<p></div>
-	<div>
-		<a href="/webproject/application/logout">Odjavite se</a>
+<div class="headerContainer">
+	<div id="item1"><p>Prijavljeni ste kao: ${sessionScope.loginUser.username}<p></div>
+	<div id="item2">
+		<a id="headerLink" href="/webproject/application/logout">Odjavite se</a>
 	</div>
 
 

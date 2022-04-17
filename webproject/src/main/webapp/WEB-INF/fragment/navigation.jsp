@@ -10,39 +10,54 @@
 <c:url value="/application/manufacturer/edit"  var="manufacturerAdd"/>
 <c:url value="/application/manufacturer/delete"  var="manufacturerDel"/>
 <style>
-/* Add a black background color to the top navigation */
 .topnav {
+  height: 8hv;
+  display: flex;
+  height: 8vh;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+  gap: 10px;
   background-color: #333;
   overflow: hidden;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 0 10px #333;
+  opacity: 0.9;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
   float: left;
   color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 25wv;
+  font-weight: bold;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
+  border-radius: 10px;
   background-color: #ddd;
   color: black;
 }
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
 </style>
 <div class="topnav">
 	
+<<<<<<< Updated upstream
 		<a class="active" href="${manufacturerAdd}">Dodaj proizvodjaca</a>
 		<a href="${manufacturer}">Pogledaj sve</a>
 		<a href="${manufacturerAdd}">Azuriraj proizvodjaca</a>
 		<a href="${manufacturerDel}">Obrisi proizvodjaca</a>
+=======
+		<a href="${manufacturerAdd }">Dodaj proizvodjaca</a>
+		<a href="${manufacturer }">Pogledaj sve</a>
+		<a href="${manufacturerEdit }">Azuriraj proizvodjaca</a>
+		<a href="${manufacturerDelete }">Obrisi proizvodjaca</a>
+>>>>>>> Stashed changes
 
 </div>
