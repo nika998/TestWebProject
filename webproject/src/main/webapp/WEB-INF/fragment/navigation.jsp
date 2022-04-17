@@ -7,7 +7,7 @@
 <c:url value="/application/manufacturer/add"  var="manufacturerAdd"/>
 <c:url value="/application/manufacturers"  var="manufacturer"/>
 
-<c:url value="/application/manufacturer/edit"  var="manufacturerAdd"/>
+<c:url value="/application/manufacturer/edit"  var="manufacturerEdit"/>
 <c:url value="/application/manufacturer/delete"  var="manufacturerDel"/>
 <style>
 .topnav {
@@ -48,16 +48,10 @@
 </style>
 <div class="topnav">
 	
-<<<<<<< Updated upstream
+
 		<a class="active" href="${manufacturerAdd}">Dodaj proizvodjaca</a>
 		<a href="${manufacturer}">Pogledaj sve</a>
-		<a href="${manufacturerAdd}">Azuriraj proizvodjaca</a>
+		<a href="${manufacturerEdit}">Azuriraj proizvodjaca</a>
 		<a href="${manufacturerDel}">Obrisi proizvodjaca</a>
-=======
-		<a href="${manufacturerAdd }">Dodaj proizvodjaca</a>
-		<a href="${manufacturer }">Pogledaj sve</a>
-		<a href="${manufacturerEdit }">Azuriraj proizvodjaca</a>
-		<a href="${manufacturerDelete }">Obrisi proizvodjaca</a>
->>>>>>> Stashed changes
 
 </div>
