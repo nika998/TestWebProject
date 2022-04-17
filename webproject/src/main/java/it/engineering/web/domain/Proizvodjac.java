@@ -58,8 +58,6 @@ public class Proizvodjac implements Serializable {
 		this.pib = pib;
 	}
 
-<<<<<<< Updated upstream
-=======
 	public Proizvodjac(String maticniBroj, String pib, String adresa, Mesto mesto) {
 		super();
 		this.adresa = adresa;
@@ -70,5 +68,5 @@ public class Proizvodjac implements Serializable {
 	
 	
 
->>>>>>> Stashed changes
+
 }

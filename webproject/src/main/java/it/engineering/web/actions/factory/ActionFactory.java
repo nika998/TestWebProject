@@ -3,15 +3,17 @@ package it.engineering.web.actions.factory;
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.actions.login.ActionLogin;
 import it.engineering.web.actions.login.ActionLogout;
+import it.engineering.web.actions.manufacturer.ActionAddManufacturer;
+import it.engineering.web.actions.manufacturer.ActionDeleteManufacturer;
+import it.engineering.web.actions.manufacturer.ActionEditManufacturer;
 import it.engineering.web.actions.manufacturer.ActionManufacturers;
-<<<<<<< Updated upstream
-=======
+
 import it.engineering.web.actions.manufacturer.ActionManufacturersAdd;
 import it.engineering.web.actions.manufacturer.ActionManufacturersDelete;
 import it.engineering.web.actions.manufacturer.ActionManufacturersEdit;
 import it.engineering.web.actions.manufacturer.ActionManufacturersEditPIB;
 import it.engineering.web.actions.manufacturer.ActionViewManufacturer;
->>>>>>> Stashed changes
+
 import it.engineering.web.constants.WebConstants;
 
 public class ActionFactory {
@@ -33,8 +35,6 @@ public class ActionFactory {
 			//proveriti uspesnost logovanja
 			action = new ActionManufacturers();
 			break;
-<<<<<<< Updated upstream
-=======
 		case WebConstants.PATH_MANUFACTURERS_ADD:
 			//proveriti uspesnost logovanja
 			action = new ActionAddManufacturer();
@@ -67,7 +67,6 @@ public class ActionFactory {
 			//proveriti uspesnost logovanja
 			action = new ActionViewManufacturer();
 			break;
->>>>>>> Stashed changes
 			
 		default:
 			break;

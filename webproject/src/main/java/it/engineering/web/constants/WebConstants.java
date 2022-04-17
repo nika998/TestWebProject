@@ -9,10 +9,6 @@ public class WebConstants {
 	public static final String PAGE_LOGIN = "/index.jsp";
 	
 	public static final String PATH_MANUFACTURERS = "/manufacturers";
-<<<<<<< Updated upstream
-	public static final String PAGE_MANUFACTURERS = "/WEB-INF/pages/manufacturers.jsp";
-
-=======
 	public static final String PAGE_MANUFACTURERS = "/WEB-INF/manufacturer/manufacturers.jsp";
 	
 	public static final String PATH_MANUFACTURERS_ADD = "/manufacturers/add";
@@ -30,5 +26,5 @@ public class WebConstants {
 	public static final String PATH_MANUFACTURERS_VIEW = "/manufacturer/view";
 	public static final String PATH_MANUFACTURERS_EDIT_CONFIRM_PIB = "/manufacturer/edit_manufacturer_pib";
 	public static final String PAGE_MANUFACTURERS_EDIT_PIB = "/WEB-INF/manufacturer/manufacturer-edit-pib.jsp";
->>>>>>> Stashed changes
+
 }
