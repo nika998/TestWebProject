@@ -1,4 +1,4 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.edit;
 
 import java.util.List;
 
@@ -11,33 +11,49 @@ import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.Mesto;
 import it.engineering.web.domain.Proizvodjac;
 import it.engineering.web.persistence.MyEntityManagerFactory;
+import it.engineering.web.storage.CityStorage;
 import it.engineering.web.storage.ManufacturersStorage;
 
-public class ActionManufacturersDelete extends AbstractAction {
+public class ActionManufacturersEditConfirm extends AbstractAction {
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
 		String operation = request.getParameter("operation");
 		switch (operation) {
-		case "Cancel": {
-			request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
-			return WebConstants.PAGE_MANUFACTURERS;
-		}
-		case "Delete": {
+		case "Odustani": {
 			Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
-			if (existingMan != null) {
+			existingMan.setPib(request.getParameter("pib"));
+			existingMan.setAdresa(request.getParameter("adresa"));
+			Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
+			existingMan.setMesto(mesto);
+			request.setAttribute("cities", CityStorage.getInstance().getAll());
+			request.setAttribute("manufacturer",existingMan);
+			return WebConstants.PAGE_MANUFACTURERS_EDIT_PIB;
+		}
+		case "Potvrdi": {
+			Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
+				existingMan.setPib(request.getParameter("pib"));
+				existingMan.setAdresa(request.getParameter("adresa"));
+				Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
+				existingMan.setMesto(mesto);
 
-				remove(existingMan);
-
+				update(existingMan);
 				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
 				return WebConstants.PAGE_MANUFACTURERS;
-			} else {
-				request.setAttribute("error", "Proizvodjac sa datim pib-om ne postoji");
-				return WebConstants.PAGE_MANUFACTURERS_DELETE;
-			}
 
 		}
 		}
+		return null;
+	}
+
+	private Mesto getMesto(int parameter) {
+		List<Mesto> cities = CityStorage.getInstance().getAll();
+
+		for (Mesto mesto : cities) {
+			if (mesto.getPttBroj() == parameter)
+				return mesto;
+		}
+
 		return null;
 	}
 
@@ -53,11 +69,11 @@ public class ActionManufacturersDelete extends AbstractAction {
 
 	}
 
-	public void remove(Proizvodjac man) {
+	public void update(Proizvodjac man) {
 		EntityManager em = MyEntityManagerFactory.getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 
-		em.remove(em.contains(man) ? man : em.merge(man));
+		em.merge(man);
 
 		em.getTransaction().commit();
 		em.close();

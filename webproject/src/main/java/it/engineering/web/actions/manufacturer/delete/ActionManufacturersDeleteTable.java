@@ -1,19 +1,20 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.delete;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.storage.ManufacturersStorage;
 
-public class ActionManufacturers extends AbstractAction{
+public class ActionManufacturersDeleteTable extends AbstractAction {
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
-		return WebConstants.PAGE_MANUFACTURERS;
+
+		String maticniBroj = request.getParameter("maticniBroj");
+		request.setAttribute("maticniBroj", maticniBroj);
+		return WebConstants.PAGE_MANUFACTURERS_DELETE_CONFIRM;
 	}
 
 }

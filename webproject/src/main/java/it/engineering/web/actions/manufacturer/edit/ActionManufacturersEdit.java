@@ -1,4 +1,4 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.edit;
 
 import java.util.List;
 
@@ -14,43 +14,38 @@ import it.engineering.web.persistence.MyEntityManagerFactory;
 import it.engineering.web.storage.CityStorage;
 import it.engineering.web.storage.ManufacturersStorage;
 
-public class ActionManufacturersEditPIB extends AbstractAction {
+public class ActionManufacturersEdit extends AbstractAction {
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
 		String operation = request.getParameter("operation");
 		switch (operation) {
-		case "Cancel": {
+		case "Vrati": {
 			request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
 			return WebConstants.PAGE_MANUFACTURERS;
 		}
-		case "Save changes": {
+		case "Azuriraj": {
 			Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
-			if (existingMan != null) {
-				int pib;
-				try {
-					pib = Integer.parseInt(request.getParameter("pib"));
-					if (request.getParameter("pib").length() != 9)
-						throw new Exception();
-				} catch (Exception e) {
-					request.setAttribute("manufacturer", existingMan);
-					request.setAttribute("error", "Pib nije unet u ispravnom formatu");
-					request.setAttribute("cities", CityStorage.getInstance().getAll());
-					return WebConstants.PAGE_MANUFACTURERS_EDIT_PIB;
 
-				}
-				existingMan.setPib(request.getParameter("pib"));
-				existingMan.setAdresa(request.getParameter("adresa"));
-				Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
-				existingMan.setMesto(mesto);
-
-				update(existingMan);
+			int pib;
+			try {
+				pib = Integer.parseInt(request.getParameter("pib"));
+				if (request.getParameter("pib").length() != 9)
+					throw new Exception();
+			} catch (Exception e) {
 				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
-				return WebConstants.PAGE_MANUFACTURERS;
-			} else {
-				request.setAttribute("error", "Proizvodjac sa datim Maticnim brojem ne postoji");
-				return WebConstants.PAGE_MANUFACTURERS_EDIT_PIB;
+				request.setAttribute("error", "Pib nije unet u ispravnom formatu");
+				request.setAttribute("cities", CityStorage.getInstance().getAll());
+				return WebConstants.PAGE_MANUFACTURERS_EDIT;
+
 			}
+			existingMan.setPib(request.getParameter("pib"));
+			existingMan.setAdresa(request.getParameter("adresa"));
+			Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
+			existingMan.setMesto(mesto);
+			request.setAttribute("manufacturer", existingMan);
+			request.setAttribute("cities", CityStorage.getInstance().getAll());
+			return WebConstants.PAGE_MANUFACTURERS_EDIT_CONFIRM;
 
 		}
 		}
@@ -78,16 +73,6 @@ public class ActionManufacturersEditPIB extends AbstractAction {
 
 		return null;
 
-	}
-
-	public void update(Proizvodjac man) {
-		EntityManager em = MyEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-		em.getTransaction().begin();
-
-		em.merge(man);
-
-		em.getTransaction().commit();
-		em.close();
 	}
 
 }

@@ -144,9 +144,19 @@ select {
 						placeholder="Uneti adresu" type="text" name="adresa" value="${manufacturer.adresa}" required /> <label>Mesto</label>
 
 					<select name="postanskiBroj" id="mesto" required>
-                            <option value="" disabled selected>Izaberite mesto</option>
+                             <option value="" disabled selected>Izaberite mesto</option>
 						<c:forEach var="city" items="${cities}">
-							<option value="${city.pttBroj}">${city.naziv}</option>
+
+							<c:choose>
+								<c:when test="${manufacturer.mesto.pttBroj == city.pttBroj}">
+									<option selected value="${city.pttBroj}">${city.naziv}</option>
+
+								</c:when>
+								<c:otherwise>
+									<option value="${city.pttBroj}">${city.naziv}</option>
+								</c:otherwise>
+							</c:choose>
+
 						</c:forEach>
 
 					</select>
@@ -154,8 +164,8 @@ select {
 					<div class="buttons">
 
 
-						<input type="submit" value="Save changes" name="operation"> <input
-							type="submit" value="Cancel" name="operation" formnovalidate>
+						<input type="submit" value="Azuriraj" name="operation"> <input
+							type="submit" value="Vrati" name="operation" formnovalidate>
 					</div>
 					<div id="error">${error}</div>
 				</form>

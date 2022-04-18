@@ -161,8 +161,8 @@ select {
 					<div class="buttons">
 
 
-						<input type="submit" value="Save changes" name="operation"> <input
-							type="submit" value="Cancel" name="operation" formnovalidate>
+						<input type="submit" value="Azuriraj" name="operation"> <input
+							type="submit" value="Vrati" name="operation" formnovalidate>
 					</div>
 					<div id="error">${error}</div>
 

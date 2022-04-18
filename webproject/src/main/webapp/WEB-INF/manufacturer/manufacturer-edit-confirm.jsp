@@ -15,7 +15,7 @@ body {
 	background-size: cover;
 }
 
-.div-body {
+.divBody {
 	diplay: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -35,55 +35,14 @@ body {
 }
 
 .divTitle {
-	height: 10%;
+	height: 15%;
 	text-align: center;
 }
 
 .divForm {
-    height:70%;
+	height: 70%;
 	padding: 0 10%;
 	font-size: 13px;
-	font-weight: bold;
-}
-
-input[type=text], input[type=password] {
-	width: 100%;
-	height: 6vh;
-	border-radius: 10px;
-	font-size: 15px;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-}
-
-input[type=submit] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
-	background: deepskyblue;
-	border-radius: 10px;
-	color: white;
-	text-align: center;
-	padding: 10px;
-	text-align: center;
-	font-size: 13px;
-	width: 200px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-}
-
-select {
-	width: 100%;
-	height: 6vh;
-	padding: 6px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	box-sizing: border-box;
-	border-radius: 10px;
-	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
 }
 
@@ -97,48 +56,109 @@ select {
 	font-size: 15px;
 }
 
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	box-sizing: border-box;
+	height: 6vh;
+	border-radius: 10px;
+	font-size: 15px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+
+input[type=submit] {
+	background-color: deepskyblue;
+	border-radius: 10px;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-around;
+	text-align: center;
+	text-align: center;
+	font-size: 13px;
+	width: 200px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+
 [type=submit]:hover {
 	transform: scale(1.05);
 }
 
 .buttons {
-    padding: 5px;
-    height: 6vh;
+	padding: 5px;
+	height: 6vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	gap: 5px;
 }
 
+select {
+	width: 100%;
+	margin: 8px 0;
+	display: inline-block;
+	box-sizing: border-box;
+	height: 6vh;
+	padding: 6px 20px;
+	border-radius: 10px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	pointer-events: none;
+}
 
+#mestoLabel {
+	pointer-events: none;
+}
 </style>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dodaj proizvodjaca</title>
+<title>Azuriraj proizvodjaca</title>
 </head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/fragment/login-user.jsp" flush="true" />
 		<jsp:include page="/WEB-INF/fragment/navigation.jsp" flush="true" />
 	</header>
-	<div class="div-body">
+	<div class="divBody">
 		<main>
 			<div class="divTitle">
-				<h2>Dodaj proizvodjaca</h2>
+				<h2>Potvrditi izmene</h2>
 			</div>
 
 			<div class="divForm">
-				<form action="/webproject/application/manufacturer/add_manufacturer"
+
+				<form
+					action="/webproject/application/manufacturer/edit_manufacturer_confirm"
 					method="post">
-					<label>Maticni broj</label> <input placeholder="Uneti maticni broj" type="text" name="maticniBroj"
-						value="${manufacturer.maticniBroj}" required /> <label>Pib</label> <input
-						placeholder="Uneti poreski ident. broj" type="text" name="pib" value="${manufacturer.pib}" required />
-					<label>Adresa</label> <input placeholder="Uneti adresu" type="text" name="adresa"
-						value="${manufacturer.adresa}" required /> <label>Mesto</label> <select
-						name="postanskiBroj" id="mesto" required>
-                          <option value="" disabled selected>Izaberite mesto</option>
+					<label>Maticni broj</label> <input
+						placeholder="Unesite poreski ident. broj" type="text"
+						name="maticniBroj" value="${manufacturer.maticniBroj}" readonly />
+
+					<label>Pib</label> <input placeholder="Unesite poreski ident. broj"
+						type="text" name="pib" value="${manufacturer.pib}" readonly /> <label>Adresa</label>
+					<input placeholder="Uneti adresu" type="text" name="adresa"
+						value="${manufacturer.adresa}" readonly /> <label id="mestoLabel">Mesto</label>
+
+					<select name="postanskiBroj" id="mesto" uneditable>
+						<option value="" disabled selected>Izaberite mesto</option>
 						<c:forEach var="city" items="${cities}">
-							<option value="${city.pttBroj}">${city.naziv}</option>
+
+							<c:choose>
+								<c:when test="${manufacturer.mesto.pttBroj == city.pttBroj}">
+									<option selected value="${city.pttBroj}">${city.naziv}</option>
+
+								</c:when>
+								<c:otherwise>
+									<option value="${city.pttBroj}">${city.naziv}</option>
+								</c:otherwise>
+							</c:choose>
+
 						</c:forEach>
 
 					</select>
@@ -146,19 +166,20 @@ select {
 					<div class="buttons">
 
 
-						<input type="submit" value="Dodaj" name="operation"> <input
-							type="submit" value="Vrati" name="operation" formnovalidate>
+						<input type="submit" value="Potvrdi" name="operation"> <input
+							type="submit" value="Odustani" name="operation" formnovalidate>
 					</div>
 					<div id="error">${error}</div>
-
 				</form>
 			</div>
 
 
+
 		</main>
 	</div>
-	<footer>
-		<jsp:include page="/WEB-INF/fragment/footer.jsp" flush="true" /></footer>
-
+	<div>
+		<footer>
+			<jsp:include page="/WEB-INF/fragment/footer.jsp" flush="true" /></footer>
+	</div>
 </body>
 </html>

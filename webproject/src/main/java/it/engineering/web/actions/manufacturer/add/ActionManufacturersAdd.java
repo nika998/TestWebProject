@@ -1,4 +1,4 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.add;
 
 import java.util.List;
 
@@ -14,19 +14,30 @@ import it.engineering.web.persistence.MyEntityManagerFactory;
 import it.engineering.web.storage.CityStorage;
 import it.engineering.web.storage.ManufacturersStorage;
 
-public class ActionManufacturersEdit extends AbstractAction {
+public class ActionManufacturersAdd extends AbstractAction {
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
 		String operation = request.getParameter("operation");
 		switch (operation) {
-		case "Cancel": {
+		case "Vrati": {
 			request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
 			return WebConstants.PAGE_MANUFACTURERS;
 		}
-		case "Save changes": {
+		case "Dodaj": {
+			int maticniBroj;
+			try {
+				maticniBroj = Integer.parseInt(request.getParameter("maticniBroj"));
+				if (request.getParameter("maticniBroj").length() != 8)
+					throw new Exception();
+			} catch (Exception e) {
+				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
+				request.setAttribute("error", "Maticni broj nije unet u ispravnom formatu");
+				request.setAttribute("cities", CityStorage.getInstance().getAll());
+				return WebConstants.PAGE_MANUFACTURERS_ADD;
+			}
 			Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
-			if (existingMan != null) {
+			if (existingMan == null) {
 				int pib;
 				try {
 					pib = Integer.parseInt(request.getParameter("pib"));
@@ -36,35 +47,25 @@ public class ActionManufacturersEdit extends AbstractAction {
 					request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
 					request.setAttribute("error", "Pib nije unet u ispravnom formatu");
 					request.setAttribute("cities", CityStorage.getInstance().getAll());
-					return WebConstants.PAGE_MANUFACTURERS_EDIT;
+					return WebConstants.PAGE_MANUFACTURERS_ADD;
 
 				}
-				existingMan.setPib(request.getParameter("pib"));
-				existingMan.setAdresa(request.getParameter("adresa"));
-				Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
-				existingMan.setMesto(mesto);
-
-				update(existingMan);
+				Proizvodjac man = new Proizvodjac(request.getParameter("maticniBroj"), request.getParameter("pib"),
+						request.getParameter("adresa"),
+						getMesto(Integer.parseInt(request.getParameter("postanskiBroj"))));
+				request.setAttribute("manufacturer", man);
+				saveWithAdditionSpecification(man);
 				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
 				return WebConstants.PAGE_MANUFACTURERS;
 			} else {
-				request.setAttribute("error", "Proizvodjac sa datim Maticnim brojem ne postoji");
-				return WebConstants.PAGE_MANUFACTURERS_EDIT;
+				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
+				request.setAttribute("error", "Grad vec postoji u listi");
+				request.setAttribute("cities", CityStorage.getInstance().getAll());
+				return WebConstants.PAGE_MANUFACTURERS_ADD;
 			}
 
 		}
 		}
-		return null;
-	}
-
-	private Mesto getMesto(int parameter) {
-		List<Mesto> cities = CityStorage.getInstance().getAll();
-
-		for (Mesto mesto : cities) {
-			if (mesto.getPttBroj() == parameter)
-				return mesto;
-		}
-
 		return null;
 	}
 
@@ -80,14 +81,30 @@ public class ActionManufacturersEdit extends AbstractAction {
 
 	}
 
-	public void update(Proizvodjac man) {
+	public void saveWithAdditionSpecification(Proizvodjac man) {
 		EntityManager em = MyEntityManagerFactory.getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-
-		em.merge(man);
-
+		Mesto existingCity = em.find(Mesto.class, man.getMesto().getPttBroj());
+		if (existingCity == null) {
+			em.persist(man);
+		} else {
+			// em.merge(man);
+			man.setMesto(existingCity);
+			em.persist(man);
+		}
 		em.getTransaction().commit();
 		em.close();
+	}
+
+	private Mesto getMesto(int parameter) {
+		List<Mesto> cities = CityStorage.getInstance().getAll();
+
+		for (Mesto mesto : cities) {
+			if (mesto.getPttBroj() == parameter)
+				return mesto;
+		}
+
+		return null;
 	}
 
 }

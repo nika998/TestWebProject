@@ -23,7 +23,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 60vh;
+	height: 80vh;
 	width: 30vw;
 	min-height: 250px;
 	min-width: 300px;
@@ -97,32 +97,21 @@ button:hover {
 	font-weight: bold;
 }
 
-.register {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-
-.register a {
-	color: deepskyblue;
-	font-family: 'Roboto', sans-serif;
-}
-
 .buttons {
 	display: flex;
 	justify-content: space-around;
 }
 </style>
 
-<title>Prijava</title>
+<title>Registracija</title>
 <body>
 	<div class="divBody">
 
 		<div class="divTitle">
-			<h2>Prijava</h2>
+			<h2>Registruj se</h2>
 		</div>
 		<div class="divForm">
-			<form action="/webproject/application/login" method="post">
+			<form action="/webproject/application/register-submit" method="post">
 
 
 				<label for="username"><b>Korisnicko ime</b></label> <input
@@ -130,16 +119,18 @@ button:hover {
 					value="${u.username}" required> <label for="password"><b>Lozinka</b></label>
 				<input type="password" placeholder="Uneti lozinku" name="password"
 					required>
+					<label for="firstname"><b>Ime</b></label>
+				<input type="text" placeholder="Uneti ime" name="firstname"
+					required>
+					<label for="lastname"><b>Prezime</b></label>
+				<input type="text" placeholder="Uneti prezime" name="lastname"
+					required>
 
 				<div class="buttons">
-					<button type="submit">Prijavi se</button>
+					<button type="submit">Registruj se</button>
 				</div>
 				<div id="error">${error_message}</div>
 
-				<div class="register">
-					<a href="/webproject/application/register">Nemate nalog?
-						Registrujte se</a>
-				</div>
 			</form>
 
 		</div>

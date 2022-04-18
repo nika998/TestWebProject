@@ -18,9 +18,10 @@ body {
 .div-body {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
-	height: 70vh;
+	height: 75vh;
+	width: 80vw;
 	position: absolute;
 	left: 50%;
 	top: 55%;
@@ -32,19 +33,19 @@ body {
 
 .tableDiv {
 	overflow-x: auto;
-	height: 55vh;
+	height: 60vh;
+	width: 75vw;
 	margin: 0 10px 10px 10px;
 	border-radius: 10px;
 }
 
 table {
-	width: 650px;
+	width: 100%;
 	padding: 10px 20%;
 	border-collapse: collapse;
 	border-radius: 10px;
 	color: black;
 	text-align: center;
-	font-size: 15px;
 }
 
 thead tr {
@@ -54,16 +55,14 @@ thead tr {
 	height: 2.5rem;
 	background: #36304a;
 	font-family: 'Roboto', sans-serif;
-	font-size: 15px;
 	line-height: 1.2;
-	font-weight: unset;
 	color: #fff;
 }
 
 tbody tr {
 	height: 2.5rem;
 	font-family: 'Roboto', sans-serif;
-	color: #808080 font-weight: unset;
+	color: #808080;
 }
 
 tbody tr:nth-child(odd) {
@@ -84,8 +83,8 @@ td a {
 	padding: 15px 5px;
 	color: black;
 	text-decoration: none;
-	font-size: 15px;
 	vertical-align: bottom;
+	color: #808080;
 }
 
 td a:hover {
@@ -109,7 +108,9 @@ h2 {
 	</header>
 	<div class="div-body">
 		<main>
-			<h2>Svi proizvodjaci registrovani u sistemu</h2>
+			<div class="divTitle">
+				<h2>Svi proizvodjaci registrovani u sistemu</h2>
+			</div>
 			<div class="tableDiv">
 				<table>
 					<thead>
@@ -118,7 +119,8 @@ h2 {
 							<th>Pib</th>
 							<th>Adresa</th>
 							<th>Mesto</th>
-							<th>Detalji</th>
+							<th>Azuriranje</th>
+							<th>Brisanje</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,7 +131,10 @@ h2 {
 								<td>${manufacturer.adresa}</td>
 								<td>${manufacturer.mesto}</td>
 								<td><a class="tableLink"
-									href="/webproject/application/manufacturer/view?maticniBroj=${manufacturer.maticniBroj}">Pogledaj</a>
+									href="/webproject/application/manufacturer/view?maticniBroj=${manufacturer.maticniBroj}">Azuriraj</a>
+								</td>
+								<td><a class="tableLink"
+									href="/webproject/application/manufacturer/delete_manufacturer_table?maticniBroj=${manufacturer.maticniBroj}">Obrisi</a>
 								</td>
 							</tr>
 						</c:forEach>

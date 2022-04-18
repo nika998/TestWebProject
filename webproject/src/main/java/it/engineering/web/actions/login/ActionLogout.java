@@ -29,6 +29,7 @@ public class ActionLogout extends AbstractAction{
 		for (User user : activeUsers) {
 			if(user.getUsername().equals(logoutUser.getUsername())) {
 				activeUsers.remove(user);
+				request.getSession(true).setAttribute("loginUser", null);
 				break;
 			}
 		}

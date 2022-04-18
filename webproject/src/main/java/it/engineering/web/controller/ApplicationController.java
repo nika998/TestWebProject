@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.actions.factory.ActionFactory;
+import it.engineering.web.domain.User;
 
 
 public class ApplicationController {
@@ -12,8 +13,9 @@ public class ApplicationController {
 		
 		String method = request.getMethod();
 		String path = request.getPathInfo();
+		User loginUser = (User) request.getSession().getAttribute("loginUser");
 		
-		AbstractAction action = ActionFactory.createAction(method, path);
+		AbstractAction action = ActionFactory.createAction(method, path, loginUser);
 		
 		return action.executeRequest(request, response);
 	}

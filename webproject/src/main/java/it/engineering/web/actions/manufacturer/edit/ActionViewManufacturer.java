@@ -1,4 +1,4 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.edit;
 
 import java.util.List;
 

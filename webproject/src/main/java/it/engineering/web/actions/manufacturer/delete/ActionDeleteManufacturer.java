@@ -1,11 +1,11 @@
-package it.engineering.web.actions.manufacturer;
+package it.engineering.web.actions.manufacturer.delete;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
@@ -18,12 +18,12 @@ import it.engineering.web.storage.ManufacturersStorage;
 
 
 
-public class ActionAddManufacturer extends AbstractAction{
+public class ActionDeleteManufacturer extends AbstractAction{
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("cities", CityStorage.getInstance().getAll());
-		return WebConstants.PAGE_MANUFACTURERS_ADD;
+		request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
+		return WebConstants.PAGE_MANUFACTURERS_DELETE;
 	}
 	
 	

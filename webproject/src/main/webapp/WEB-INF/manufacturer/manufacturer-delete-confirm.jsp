@@ -33,21 +33,37 @@ body {
 	border-radius: 10px;
 }
 
-.divTitle {
-padding: 0 0 10px;
-	height: 10%;
+.divTitle p {
 	text-align: center;
-	font-size: 17px;
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	padding: 0 10%;
 }
 
 .divForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	padding: 0 10%;
 	font-size: 15px;
 	font-weight: bold;
 }
 
+input[type=text] {
+	width: 100%;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+
 .buttons {
-padding: 10px;
+	padding: 10px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -70,17 +86,6 @@ input[type=submit] {
 [type=submit]:hover {
 	transform: scale(1.05);
 }
-
-select {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border-radius: 10px;
-	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-}
 </style>
 <head>
 <meta charset="ISO-8859-1">
@@ -96,30 +101,22 @@ select {
 	<div class="divBody">
 		<main>
 			<div class="divTitle">
-				<h2>Obrisi proizvodjaca</h2>
+				<p>Izbrisati proizvodjaca sa maticnim brojem:</p>
 			</div>
 			<div class="divForm">
 				<form
-					action="/webproject/application/manufacturer/delete_manufacturer"
+					action="/webproject/application/manufacturer/delete_manufacturer_confirm"
 					method="post">
 
-					<label>Maticni broj</label> <select name="maticniBroj" id="maticniBroj" required>
-                         <option value="" disabled selected>Izaberite opciju</option>
-						<c:forEach var="manufacturer" items="${manufacturers}">
-
-							<option value="${manufacturer.maticniBroj}">${manufacturer.maticniBroj}</option>
-
-						</c:forEach>
-
-					</select>
+					<input type="text" name="maticniBroj" value="${maticniBroj}"
+						readonly />
 
 					<div class="buttons">
 
 
-						<input type="submit" value="Obrisi" name="operation"> <input
-							type="submit" value="Vrati" name="operation" formnovalidate>
+						<input type="submit" value="Potvrdi" name="operation"> <input
+							type="submit" value="Odustani" name="operation" formnovalidate>
 					</div>
-					<div>${error}</div>
 
 				</form>
 			</div>
