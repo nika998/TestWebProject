@@ -80,7 +80,7 @@ td {
 td a {
 	display: block;
 	text-align: center;
-	padding: 15px 5px;
+	margin: 5px 15px;
 	color: black;
 	text-decoration: none;
 	vertical-align: bottom;

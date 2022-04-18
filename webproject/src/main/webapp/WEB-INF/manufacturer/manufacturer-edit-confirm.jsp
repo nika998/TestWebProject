@@ -80,7 +80,7 @@ input[type=submit] {
 	justify-content: space-around;
 	text-align: center;
 	text-align: center;
-	font-size: 13px;
+	font-size: 15px;
 	width: 200px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
@@ -110,6 +110,7 @@ select {
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
 	pointer-events: none;
+	font-size: 15px;
 }
 
 #mestoLabel {

@@ -127,7 +127,8 @@ button:hover {
 					required>
 
 				<div class="buttons">
-					<button type="submit">Registruj se</button>
+					<button type="submit" value="Registruj se" name="operation">Registruj se</button>
+					<button type="submit" value="Nazad" name="operation" formnovalidate>Nazad</button>
 				</div>
 				<div id="error">${error_message}</div>
 

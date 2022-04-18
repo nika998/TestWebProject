@@ -16,7 +16,9 @@ public class ActionRegisterSubmit extends AbstractAction {
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
-		User user;
+		String operation = request.getParameter("operation");
+		switch (operation) {
+		case "Registruj se":User user;
 		try {
 			user = register(request);
 			if (user != null) {
@@ -29,6 +31,9 @@ public class ActionRegisterSubmit extends AbstractAction {
 			request.setAttribute("error_message", e.getMessage());
 			return WebConstants.PAGE_LOGIN;
 		}
+		case "Nazad": return WebConstants.PAGE_LOGIN;
+		}
+		return null;
 
 	}
 

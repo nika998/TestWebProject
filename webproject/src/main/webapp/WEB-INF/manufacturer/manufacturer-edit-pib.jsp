@@ -80,7 +80,7 @@ input[type=submit] {
 	justify-content: space-around;
 	text-align: center;
 	text-align: center;
-	font-size: 13px;
+	font-size: 15px;
 	width: 200px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
@@ -109,6 +109,7 @@ select {
 	border-radius: 10px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
+	font-size: 15px;
 }
 </style>
 <head>

@@ -80,6 +80,7 @@ select {
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
+	font-size: 15px;
 }
 </style>
 <head>

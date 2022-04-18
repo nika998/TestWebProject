@@ -40,7 +40,7 @@ body {
 }
 
 .divForm {
-    height:70%;
+	height: 70%;
 	padding: 0 10%;
 	font-size: 13px;
 	font-weight: bold;
@@ -60,16 +60,16 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-around;
 	background: deepskyblue;
 	border-radius: 10px;
 	color: white;
 	text-align: center;
 	padding: 10px;
 	text-align: center;
-	font-size: 13px;
+	font-size: 15px;
 	width: 200px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
@@ -85,6 +85,7 @@ select {
 	border-radius: 10px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
+	font-size: 15px;
 }
 
 #error {
@@ -102,15 +103,13 @@ select {
 }
 
 .buttons {
-    padding: 5px;
-    height: 6vh;
+	padding: 5px;
+	height: 6vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	gap: 5px;
 }
-
-
 </style>
 <head>
 <meta charset="ISO-8859-1">
@@ -130,13 +129,15 @@ select {
 			<div class="divForm">
 				<form action="/webproject/application/manufacturer/add_manufacturer"
 					method="post">
-					<label>Maticni broj</label> <input placeholder="Uneti maticni broj" type="text" name="maticniBroj"
-						value="${manufacturer.maticniBroj}" required /> <label>Pib</label> <input
-						placeholder="Uneti poreski ident. broj" type="text" name="pib" value="${manufacturer.pib}" required />
-					<label>Adresa</label> <input placeholder="Uneti adresu" type="text" name="adresa"
+					<label>Maticni broj</label> <input placeholder="Uneti maticni broj"
+						type="text" name="maticniBroj" value="${manufacturer.maticniBroj}"
+						required /> <label>Pib</label> <input
+						placeholder="Uneti poreski ident. broj" type="text" name="pib"
+						value="${manufacturer.pib}" required /> <label>Adresa</label> <input
+						placeholder="Uneti adresu" type="text" name="adresa"
 						value="${manufacturer.adresa}" required /> <label>Mesto</label> <select
 						name="postanskiBroj" id="mesto" required>
-                          <option value="" disabled selected>Izaberite mesto</option>
+						<option value="" disabled selected>Izaberite mesto</option>
 						<c:forEach var="city" items="${cities}">
 							<option value="${city.pttBroj}">${city.naziv}</option>
 						</c:forEach>
