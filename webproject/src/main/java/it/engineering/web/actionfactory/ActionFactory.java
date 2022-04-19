@@ -1,4 +1,4 @@
-package it.engineering.web.actions.factory;
+package it.engineering.web.actionfactory;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.actions.login.ActionLogin;

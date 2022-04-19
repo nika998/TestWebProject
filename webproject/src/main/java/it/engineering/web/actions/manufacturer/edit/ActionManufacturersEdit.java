@@ -49,6 +49,12 @@ public class ActionManufacturersEdit extends AbstractAction {
 				return WebConstants.PAGE_MANUFACTURERS_EDIT;
 
 			}
+			if(postojiPib(request.getParameter("pib"),request.getParameter("maticniBroj"))) {
+				request.setAttribute("manufacturers", manufacturerService.getAll());
+				request.setAttribute("error", "Zadati PIB vec postoji u registru");
+				request.setAttribute("cities", cityService.getAll());
+				return WebConstants.PAGE_MANUFACTURERS_EDIT;
+			}
 			existingMan.setPib(request.getParameter("pib"));
 			existingMan.setAdresa(request.getParameter("adresa"));
 			Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
@@ -60,6 +66,17 @@ public class ActionManufacturersEdit extends AbstractAction {
 		}
 		}
 		return null;
+	}
+
+	private boolean postojiPib(String pib, String matBroj) {
+		List<Proizvodjac> manufacturers = manufacturerService.getAll();
+		
+		for (Proizvodjac man : manufacturers) {
+			if (man.getPib().equals(pib) && !man.getMaticniBroj().equals(matBroj))
+				return true;
+		}
+		
+		return false;
 	}
 
 	private Mesto getMesto(int parameter) {

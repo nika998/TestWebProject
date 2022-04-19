@@ -15,7 +15,7 @@ import it.engineering.web.service.implementation.CityServiceImplementation;
 import it.engineering.web.service.implementation.ManufacturerServiceImplementation;
 
 public class ActionManufacturersAdd extends AbstractAction {
-	
+
 	private CityService cityService;
 	private ManufacturerService manufacturerService;
 
@@ -61,6 +61,13 @@ public class ActionManufacturersAdd extends AbstractAction {
 					return WebConstants.PAGE_MANUFACTURERS_ADD;
 
 				}
+				existingMan = getProizvodjacPib(request.getParameter("pib"));
+				if (existingMan != null) {
+					request.setAttribute("manufacturers", manufacturerService.getAll());
+					request.setAttribute("error", "Zadati PIB vec postoji u registru");
+					request.setAttribute("cities", cityService.getAll());
+					return WebConstants.PAGE_MANUFACTURERS_ADD;
+				}
 				Proizvodjac man = new Proizvodjac(request.getParameter("maticniBroj"), request.getParameter("pib"),
 						request.getParameter("adresa"),
 						getMesto(Integer.parseInt(request.getParameter("postanskiBroj"))));
@@ -70,13 +77,24 @@ public class ActionManufacturersAdd extends AbstractAction {
 				return WebConstants.PAGE_MANUFACTURERS;
 			} else {
 				request.setAttribute("manufacturers", manufacturerService.getAll());
-				request.setAttribute("error", "Grad vec postoji u listi");
+				request.setAttribute("error", "Proizvodjac vec postoji u registru");
 				request.setAttribute("cities", cityService.getAll());
 				return WebConstants.PAGE_MANUFACTURERS_ADD;
 			}
 
 		}
 		}
+		return null;
+	}
+
+	private Proizvodjac getProizvodjacPib(String pib) {
+		List<Proizvodjac> manufacturers = manufacturerService.getAll();
+
+		for (Proizvodjac man : manufacturers) {
+			if (man.getPib().equals(pib))
+				return man;
+		}
+
 		return null;
 	}
 

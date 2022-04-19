@@ -3,8 +3,8 @@ package it.engineering.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.engineering.web.actionfactory.ActionFactory;
 import it.engineering.web.actions.AbstractAction;
-import it.engineering.web.actions.factory.ActionFactory;
 import it.engineering.web.domain.User;
 
 
