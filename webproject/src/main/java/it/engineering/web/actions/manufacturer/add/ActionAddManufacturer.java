@@ -1,28 +1,27 @@
 package it.engineering.web.actions.manufacturer.add;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
-import it.engineering.web.domain.Mesto;
-import it.engineering.web.domain.Proizvodjac;
-import it.engineering.web.persistence.MyEntityManagerFactory;
-import it.engineering.web.storage.CityStorage;
-import it.engineering.web.storage.ManufacturersStorage;
-
+import it.engineering.web.service.CityService;
+import it.engineering.web.service.implementation.CityServiceImplementation;
 
 
 
 public class ActionAddManufacturer extends AbstractAction{
+	
+CityService cityService;
+	
+	public ActionAddManufacturer() {
+		super();
+		cityService = new CityServiceImplementation();
+	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("cities", CityStorage.getInstance().getAll());
+		request.setAttribute("cities", cityService.getAll());
 		return WebConstants.PAGE_MANUFACTURERS_ADD;
 	}
 	

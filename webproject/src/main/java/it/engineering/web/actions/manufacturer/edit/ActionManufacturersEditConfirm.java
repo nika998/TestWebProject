@@ -2,7 +2,6 @@ package it.engineering.web.actions.manufacturer.edit;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,11 +9,21 @@ import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.Mesto;
 import it.engineering.web.domain.Proizvodjac;
-import it.engineering.web.persistence.MyEntityManagerFactory;
-import it.engineering.web.storage.CityStorage;
-import it.engineering.web.storage.ManufacturersStorage;
+import it.engineering.web.service.CityService;
+import it.engineering.web.service.ManufacturerService;
+import it.engineering.web.service.implementation.CityServiceImplementation;
+import it.engineering.web.service.implementation.ManufacturerServiceImplementation;
 
 public class ActionManufacturersEditConfirm extends AbstractAction {
+	
+	private CityService cityService;
+	private ManufacturerService manufacturerService;
+
+	public ActionManufacturersEditConfirm() {
+		super();
+		cityService = new CityServiceImplementation();
+		manufacturerService = new ManufacturerServiceImplementation();
+	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -26,7 +35,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 			existingMan.setAdresa(request.getParameter("adresa"));
 			Mesto mesto = getMesto(Integer.parseInt(request.getParameter("postanskiBroj")));
 			existingMan.setMesto(mesto);
-			request.setAttribute("cities", CityStorage.getInstance().getAll());
+			request.setAttribute("cities", cityService.getAll());
 			request.setAttribute("manufacturer",existingMan);
 			return WebConstants.PAGE_MANUFACTURERS_EDIT_PIB;
 		}
@@ -38,7 +47,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 				existingMan.setMesto(mesto);
 
 				update(existingMan);
-				request.setAttribute("manufacturers", ManufacturersStorage.getInstance().getAll());
+				request.setAttribute("manufacturers", manufacturerService.getAll());
 				return WebConstants.PAGE_MANUFACTURERS;
 
 		}
@@ -47,7 +56,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 	}
 
 	private Mesto getMesto(int parameter) {
-		List<Mesto> cities = CityStorage.getInstance().getAll();
+		List<Mesto> cities = cityService.getAll();
 
 		for (Mesto mesto : cities) {
 			if (mesto.getPttBroj() == parameter)
@@ -58,7 +67,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 	}
 
 	private Proizvodjac getProizvodjac(String maticniBroj) {
-		List<Proizvodjac> manufacturers = ManufacturersStorage.getInstance().getAll();
+		List<Proizvodjac> manufacturers = manufacturerService.getAll();
 
 		for (Proizvodjac man : manufacturers) {
 			if (man.getMaticniBroj().equals(maticniBroj))
@@ -70,13 +79,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 	}
 
 	public void update(Proizvodjac man) {
-		EntityManager em = MyEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-		em.getTransaction().begin();
-
-		em.merge(man);
-
-		em.getTransaction().commit();
-		em.close();
+		manufacturerService.update(man);
 	}
 
 }

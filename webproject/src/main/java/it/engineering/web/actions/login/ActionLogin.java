@@ -10,9 +10,17 @@ import javax.servlet.http.HttpSession;
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.User;
-import it.engineering.web.storage.UserStorage;
+import it.engineering.web.service.UserService;
+import it.engineering.web.service.implementation.UserServiceImplementation;
 
 public class ActionLogin extends AbstractAction {
+	
+	private UserService userService;
+
+	public ActionLogin() {
+		super();
+		userService = new UserServiceImplementation();
+	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -22,6 +30,7 @@ public class ActionLogin extends AbstractAction {
 			if (user != null) {
 				
 				ServletContext sc = request.getServletContext();
+				@SuppressWarnings("unchecked")
 				List<User> activeUsers =  (List<User>) sc.getAttribute("activeUsers");
 				activeUsers.add(user);
 				
@@ -53,8 +62,8 @@ public class ActionLogin extends AbstractAction {
 		
 		 ServletContext sc = request.getServletContext();
 	    
-
-		List<User> users = UserStorage.getInstance().getAll();
+		List<User> users = userService.getAll();
+		@SuppressWarnings("unchecked")
 		List<User> activeUsers =  (List<User>) sc.getAttribute("activeUsers");
 		for (User current : users) {
 			if (current.equals(user)) {

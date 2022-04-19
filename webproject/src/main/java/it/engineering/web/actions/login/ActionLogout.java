@@ -25,6 +25,7 @@ public class ActionLogout extends AbstractAction{
 
 	private void logout(HttpServletRequest request, User logoutUser) {
 		ServletContext sc = request.getServletContext();
+		@SuppressWarnings("unchecked")
 		List<User> activeUsers = (List<User>) sc.getAttribute("activeUsers");
 		for (User user : activeUsers) {
 			if(user.getUsername().equals(logoutUser.getUsername())) {

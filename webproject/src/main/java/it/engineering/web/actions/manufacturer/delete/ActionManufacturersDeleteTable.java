@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
-import it.engineering.web.storage.ManufacturersStorage;
 
 public class ActionManufacturersDeleteTable extends AbstractAction {
 

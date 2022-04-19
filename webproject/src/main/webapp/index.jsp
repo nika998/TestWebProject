@@ -95,6 +95,7 @@ button:hover {
 	color: #DAA520;
 	font-size: 15px;
 	font-weight: bold;
+	text-align: center;
 }
 
 .register {

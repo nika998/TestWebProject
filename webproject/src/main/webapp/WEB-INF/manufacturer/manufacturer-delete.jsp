@@ -108,7 +108,15 @@ select {
                          <option value="" disabled selected>Izaberite opciju</option>
 						<c:forEach var="manufacturer" items="${manufacturers}">
 
-							<option value="${manufacturer.maticniBroj}">${manufacturer.maticniBroj}</option>
+							<c:choose>
+								<c:when test="${manufacturer.maticniBroj == maticniBroj}">
+									<option selected value="${manufacturer.maticniBroj}">${manufacturer.maticniBroj}</option>
+
+								</c:when>
+								<c:otherwise>
+									<option value="${manufacturer.maticniBroj}">${manufacturer.maticniBroj}</option>
+								</c:otherwise>
+							</c:choose>
 
 						</c:forEach>
 

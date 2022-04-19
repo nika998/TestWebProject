@@ -2,28 +2,38 @@ package it.engineering.web.actions.manufacturer.edit;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.Proizvodjac;
-import it.engineering.web.storage.CityStorage;
-import it.engineering.web.storage.ManufacturersStorage;
+import it.engineering.web.service.CityService;
+import it.engineering.web.service.ManufacturerService;
+import it.engineering.web.service.implementation.CityServiceImplementation;
+import it.engineering.web.service.implementation.ManufacturerServiceImplementation;
 
 public class ActionViewManufacturer extends AbstractAction {
+	
+	private CityService cityService;
+	private ManufacturerService manufacturerService;
+
+	public ActionViewManufacturer() {
+		super();
+		cityService = new CityServiceImplementation();
+		manufacturerService = new ManufacturerServiceImplementation();
+	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {
 		Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
 		request.setAttribute("manufacturer", existingMan);
-		request.setAttribute("cities", CityStorage.getInstance().getAll());
+		request.setAttribute("cities", cityService.getAll());
 		return WebConstants.PAGE_MANUFACTURERS_EDIT_PIB;
 	}
 
 	private Proizvodjac getProizvodjac(String maticniBroj) {
-		List<Proizvodjac> manufacturers = ManufacturersStorage.getInstance().getAll();
+		List<Proizvodjac> manufacturers = manufacturerService.getAll();
 
 		for (Proizvodjac man : manufacturers) {
 			if (man.getMaticniBroj().equals(maticniBroj))
