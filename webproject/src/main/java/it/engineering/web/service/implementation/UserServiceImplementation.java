@@ -6,19 +6,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import it.engineering.web.dao.UserDao;
-import it.engineering.web.dao.implementation.JPAUserDaoImplementation;
+import it.engineering.web.dao.jdbctemplateimpl.UserJDBCTemplateImpl;
 import it.engineering.web.domain.User;
 import it.engineering.web.service.UserService;
 
 public class UserServiceImplementation implements UserService {
 
+	@SuppressWarnings("unused")
 	private EntityManager em;
 	private UserDao userDao;
 
 	public UserServiceImplementation() {
 		em = Persistence.createEntityManagerFactory("webproject").createEntityManager();
-		userDao = new JPAUserDaoImplementation(em);
-
+		userDao = new UserJDBCTemplateImpl();
 	}
 
 	@Override

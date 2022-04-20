@@ -16,6 +16,7 @@ body {
 }
 
 .div-body {
+	z-index: 10;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -29,6 +30,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.6);
 	box-shadow: 0 0 10px #000;
 	border-radius: 10px;
+	display: flex;
 }
 
 .tableDiv {
@@ -96,17 +98,61 @@ td a:hover {
 h2 {
 	text-align: center;
 }
+
+.alert {
+	position: absolute;
+	left: 0.75%;
+	z-index: 9999 !important;
+	width: 95vw;
+	padding: 20px;
+	background-color: deepskyblue;
+	color: white;
+	margin-bottom: 15px;
+	padding: 20px;
+	text-align: center;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 20px;
+	background-color: deepskyblue;
+	color: white;
+	margin-bottom: 15px;
+	padding: 20px;
+	text-align: center;
+	border-bottom-left-radius: 10px;
+}
+
+/* The close button */
+.closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+	color: black;
+}
 </style>
 <head>
 <meta charset="ISO-8859-1">
 <title>Svi proizvodjaci</title>
 </head>
+
 <body>
+
 	<header>
 		<jsp:include page="/WEB-INF/fragment/login-user.jsp" flush="true" />
 		<jsp:include page="/WEB-INF/fragment/navigation.jsp" flush="true" />
 	</header>
+
+
 	<div class="div-body">
+
 		<main>
 			<div class="divTitle">
 				<h2>Svi proizvodjaci registrovani u sistemu</h2>
@@ -142,7 +188,37 @@ h2 {
 				</table>
 			</div>
 		</main>
+
 	</div>
+
+	<c:choose>
+		<c:when test="${alert == 'deleted'}">
+			<div class="alert">
+				<span class="closebtn"
+					onclick="this.parentElement.style.display='none';">&times;</span>
+				Proizvodjac uspesno obrisan.
+			</div>
+		</c:when>
+		<c:when test="${alert == 'updated'}">
+			<div class="alert">
+				<span class="closebtn"
+					onclick="this.parentElement.style.display='none';">&times;</span>
+				Proizvodjac uspesno azuriran.
+			</div>
+		</c:when>
+		<c:when test="${alert == 'added'}">
+			<div class="alert">
+				<span class="closebtn"
+					onclick="this.parentElement.style.display='none';">&times;</span>
+				Proizvodjac uspesno dodat.
+			</div>
+		</c:when>
+		<c:otherwise>
+
+		</c:otherwise>
+	</c:choose>
+
+
 
 	<footer>
 		<jsp:include page="/WEB-INF/fragment/footer.jsp" flush="true" />

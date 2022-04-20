@@ -74,6 +74,7 @@ public class ActionManufacturersAdd extends AbstractAction {
 				request.setAttribute("manufacturer", man);
 				saveWithAdditionSpecification(man);
 				request.setAttribute("manufacturers", manufacturerService.getAll());
+				request.setAttribute("alert", "added");
 				return WebConstants.PAGE_MANUFACTURERS;
 			} else {
 				request.setAttribute("manufacturers", manufacturerService.getAll());

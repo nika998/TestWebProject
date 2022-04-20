@@ -13,5 +13,7 @@ public interface CityDao {
     public void remove(Mesto p);
     
     public List<Mesto> getAll();
+    
+    public Mesto findByID(int pttBroj);
 
 }

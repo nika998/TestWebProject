@@ -48,6 +48,7 @@ public class ActionManufacturersEditConfirm extends AbstractAction {
 
 				update(existingMan);
 				request.setAttribute("manufacturers", manufacturerService.getAll());
+				request.setAttribute("alert", "updated");
 				return WebConstants.PAGE_MANUFACTURERS;
 
 		}

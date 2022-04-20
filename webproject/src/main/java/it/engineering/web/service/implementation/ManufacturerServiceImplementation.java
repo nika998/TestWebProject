@@ -6,19 +6,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import it.engineering.web.dao.ManufacturerDao;
-import it.engineering.web.dao.implementation.JPAManufacturerDaoImplementation;
+import it.engineering.web.dao.jdbctemplateimpl.ManufacturerJDBCTemplateImpl;
 import it.engineering.web.domain.Proizvodjac;
 import it.engineering.web.service.ManufacturerService;
 
 public class ManufacturerServiceImplementation implements ManufacturerService{
 	
+	@SuppressWarnings("unused")
 	private EntityManager em;
 	private ManufacturerDao manufacturerDao;
 
 	public ManufacturerServiceImplementation() {
 		em = Persistence.createEntityManagerFactory("webproject").createEntityManager();
-		manufacturerDao = new JPAManufacturerDaoImplementation(em);
-
+		manufacturerDao = new ManufacturerJDBCTemplateImpl();
 	}
 
 	@Override

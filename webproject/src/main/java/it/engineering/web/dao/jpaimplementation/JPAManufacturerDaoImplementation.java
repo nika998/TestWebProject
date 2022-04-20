@@ -1,4 +1,4 @@
-package it.engineering.web.dao.implementation;
+package it.engineering.web.dao.jpaimplementation;
 
 import java.util.List;
 

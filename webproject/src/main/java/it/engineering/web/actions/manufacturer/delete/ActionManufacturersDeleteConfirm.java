@@ -33,6 +33,7 @@ public class ActionManufacturersDeleteConfirm extends AbstractAction {
 			Proizvodjac existingMan = getProizvodjac(request.getParameter("maticniBroj"));
 			remove(existingMan);
 			request.setAttribute("manufacturers", manufacturerService.getAll());
+			request.setAttribute("alert", "deleted");
 			return WebConstants.PAGE_MANUFACTURERS;
 
 		}

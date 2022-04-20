@@ -1,23 +1,30 @@
-package it.engineering.web.dao.implementation;
+package it.engineering.web.dao.jpaimplementation;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import it.engineering.web.dao.CityDao;
-import it.engineering.web.domain.Mesto;
+import it.engineering.web.dao.UserDao;
+import it.engineering.web.domain.User;
 
-public class JPACityDaoImplementation implements CityDao{
+public class JPAUserDaoImplementation implements UserDao{
 	
 	private EntityManager em;	
 
-	public JPACityDaoImplementation(EntityManager em) {
+	public JPAUserDaoImplementation(EntityManager em) {
 		super();
 		this.em = em;
 	}
 
 	@Override
-	public void add(Mesto p) {
+	public void add(User p) {
+		em.getTransaction().begin();
+		em.merge(p);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public void update(User p) {
 		em.getTransaction().begin();
 		em.merge(p);
 		em.getTransaction().commit();
@@ -25,15 +32,7 @@ public class JPACityDaoImplementation implements CityDao{
 	}
 
 	@Override
-	public void update(Mesto p) {
-		em.getTransaction().begin();
-		em.merge(p);
-		em.getTransaction().commit();
-		
-	}
-
-	@Override
-	public void remove(Mesto p) {
+	public void remove(User p) {
 		em.getTransaction().begin();
 		em.remove(p);
 		em.getTransaction().commit();
@@ -41,10 +40,11 @@ public class JPACityDaoImplementation implements CityDao{
 	}
 
 	@Override
-	public List<Mesto> getAll() {
-		List<Mesto> cities = em.createQuery("select p from Mesto p", Mesto.class)
+	public List<User> getAll() {
+		List<User> users = em.createQuery("select u from User u", User.class)
 				.getResultList();
-		return cities;
+		return users;
+		
 	}
 
 }
