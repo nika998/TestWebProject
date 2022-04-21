@@ -6,22 +6,19 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import it.engineering.web.dao.UserDao;
 import it.engineering.web.domain.User;
 
+@Component(value = "userJdbcTemplate")
 public class UserJDBCTemplateImpl implements UserDao {
-
+    
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	private DataSourceFactory dataSourceFactory;
-
-	public UserJDBCTemplateImpl() {
-		dataSourceFactory = new DataSourceFactory();
-		DataSource dataSource = dataSourceFactory.getDataSource();
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
 
 	@Override
 	public void add(User user) {

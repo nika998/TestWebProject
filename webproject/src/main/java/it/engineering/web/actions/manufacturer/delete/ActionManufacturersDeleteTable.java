@@ -3,9 +3,12 @@ package it.engineering.web.actions.manufacturer.delete;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 
+@Component
 public class ActionManufacturersDeleteTable extends AbstractAction {
 
 	@Override

@@ -4,16 +4,22 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import it.engineering.web.dao.UserDao;
 import it.engineering.web.domain.User;
 
-public class JPAUserDaoImplementation implements UserDao{
-	
-	private EntityManager em;	
+@Component(value = "userJpa")
+class JPAUserDaoImplementation implements UserDao {
 
-	public JPAUserDaoImplementation(EntityManager em) {
+	private EntityManager em;
+
+	@Autowired
+	public JPAUserDaoImplementation() {
 		super();
-		this.em = em;
+		em = EntityManagerFactory.getEntityManager();
 	}
 
 	@Override
@@ -28,7 +34,7 @@ public class JPAUserDaoImplementation implements UserDao{
 		em.getTransaction().begin();
 		em.merge(p);
 		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
@@ -36,15 +42,14 @@ public class JPAUserDaoImplementation implements UserDao{
 		em.getTransaction().begin();
 		em.remove(p);
 		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
 	public List<User> getAll() {
-		List<User> users = em.createQuery("select u from User u", User.class)
-				.getResultList();
+		List<User> users = em.createQuery("select u from User u", User.class).getResultList();
 		return users;
-		
+
 	}
 
 }

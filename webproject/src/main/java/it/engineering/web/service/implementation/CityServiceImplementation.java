@@ -2,26 +2,20 @@ package it.engineering.web.service.implementation;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import it.engineering.web.dao.CityDao;
 import it.engineering.web.dao.jdbctemplateimpl.CityJDBCTemplateImpl;
 import it.engineering.web.domain.Mesto;
 import it.engineering.web.service.CityService;
 
+@Service
 public class CityServiceImplementation implements CityService{
-	
-	@SuppressWarnings("unused")
-	private EntityManager em;
-	private CityDao cityDao;
 
-	
-	public CityServiceImplementation() {
-		em = Persistence.createEntityManagerFactory("webproject")
-				.createEntityManager();
-		cityDao = new CityJDBCTemplateImpl();
-	}
+	@Autowired@Qualifier(value = "cityJdbcTemplate")
+	private CityDao cityDao;
 
 	@Override
 	public void add(Mesto p) {

@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.User;
 
+
+@Component
 public class ActionLogout extends AbstractAction{
 
 	@Override
@@ -19,7 +23,7 @@ public class ActionLogout extends AbstractAction{
 		HttpSession s = request.getSession(true);
 
 		User logoutUser = (User) s.getAttribute("loginUser");
-		logout(request, logoutUser);
+		if(logoutUser != null)logout(request, logoutUser);
 		return WebConstants.PAGE_LOGIN;
 	}
 
@@ -30,7 +34,7 @@ public class ActionLogout extends AbstractAction{
 		for (User user : activeUsers) {
 			if(user.getUsername().equals(logoutUser.getUsername())) {
 				activeUsers.remove(user);
-				request.getSession(true).setAttribute("loginUser", null);
+				request.getSession().setAttribute("loginUser", null);
 				break;
 			}
 		}

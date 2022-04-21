@@ -5,12 +5,8 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class DataSourceFactory {
-
-	public DataSourceFactory() {
-		
-	}
-	
-	public DataSource getDataSource() {
+   	
+	public static DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl("jdbc:mysql://localhost:3306/webzadatakeng");
 		dataSource.setUsername("root");

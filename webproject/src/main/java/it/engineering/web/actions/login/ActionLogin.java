@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.User;
 import it.engineering.web.service.UserService;
 import it.engineering.web.service.implementation.UserServiceImplementation;
 
+@Component
 public class ActionLogin extends AbstractAction {
 	
+	@Autowired
 	private UserService userService;
-
-	public ActionLogin() {
-		super();
-		userService = new UserServiceImplementation();
-	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {

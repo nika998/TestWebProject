@@ -6,22 +6,19 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import it.engineering.web.dao.CityDao;
 import it.engineering.web.domain.Mesto;
 
+@Component(value = "cityJdbcTemplate")
 public class CityJDBCTemplateImpl implements CityDao {
-
+    
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	private DataSourceFactory dataSourceFactory;
-
-	public CityJDBCTemplateImpl() {
-		dataSourceFactory = new DataSourceFactory();
-		DataSource dataSource = dataSourceFactory.getDataSource();
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
 
 	@Override
 	public void add(Mesto city) {

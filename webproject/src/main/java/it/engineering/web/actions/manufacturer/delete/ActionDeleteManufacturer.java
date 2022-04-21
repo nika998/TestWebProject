@@ -3,22 +3,19 @@ package it.engineering.web.actions.manufacturer.delete;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.service.ManufacturerService;
 import it.engineering.web.service.implementation.ManufacturerServiceImplementation;
 
-
-
-
+@Component
 public class ActionDeleteManufacturer extends AbstractAction{
 	
+	@Autowired
 	private ManufacturerService manufacturerService;
-
-	public ActionDeleteManufacturer() {
-		super();
-		manufacturerService = new ManufacturerServiceImplementation();
-	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {

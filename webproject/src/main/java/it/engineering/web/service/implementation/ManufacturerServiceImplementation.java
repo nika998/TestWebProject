@@ -2,24 +2,20 @@ package it.engineering.web.service.implementation;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import it.engineering.web.dao.ManufacturerDao;
 import it.engineering.web.dao.jdbctemplateimpl.ManufacturerJDBCTemplateImpl;
 import it.engineering.web.domain.Proizvodjac;
 import it.engineering.web.service.ManufacturerService;
 
+@Service
 public class ManufacturerServiceImplementation implements ManufacturerService{
 	
-	@SuppressWarnings("unused")
-	private EntityManager em;
+	@Autowired@Qualifier(value = "manufacturerJdbcTemplate")
 	private ManufacturerDao manufacturerDao;
-
-	public ManufacturerServiceImplementation() {
-		em = Persistence.createEntityManagerFactory("webproject").createEntityManager();
-		manufacturerDao = new ManufacturerJDBCTemplateImpl();
-	}
 
 	@Override
 	public void add(Proizvodjac p) {

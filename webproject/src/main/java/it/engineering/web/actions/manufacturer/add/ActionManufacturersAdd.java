@@ -5,6 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.Mesto;
@@ -14,16 +17,13 @@ import it.engineering.web.service.ManufacturerService;
 import it.engineering.web.service.implementation.CityServiceImplementation;
 import it.engineering.web.service.implementation.ManufacturerServiceImplementation;
 
+@Component
 public class ActionManufacturersAdd extends AbstractAction {
-
+    
+    @Autowired
 	private CityService cityService;
+    @Autowired
 	private ManufacturerService manufacturerService;
-
-	public ActionManufacturersAdd() {
-		super();
-		cityService = new CityServiceImplementation();
-		manufacturerService = new ManufacturerServiceImplementation();
-	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {

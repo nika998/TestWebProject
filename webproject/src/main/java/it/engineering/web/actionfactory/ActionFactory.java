@@ -1,5 +1,8 @@
 package it.engineering.web.actionfactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.actions.login.ActionLogin;
 import it.engineering.web.actions.login.ActionLogout;
@@ -20,71 +23,102 @@ import it.engineering.web.actions.manufacturer.edit.ActionViewManufacturer;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.User;
 
+@Component
 public class ActionFactory {
+	
+	private ActionLogout actionLogout;
+	private ActionLogin actionLogin;
+	private ActionRegister actionRegister;
+	private ActionRegisterSubmit actionRegisterSubmit;
+	private ActionManufacturers actionManufacturers;
+	private ActionAddManufacturer actionAddManufacturer;
+	private ActionManufacturersAdd actionManufacturersAdd;
+	private ActionEditManufacturer actionEditManufacturer;
+	private ActionManufacturersEdit actionManufacturersEdit;
+	private ActionManufacturersEditPIB actionManufacturersEditPIB;
+	private ActionManufacturersEditConfirm actionManufacturersEditConfirm;
+	private ActionDeleteManufacturer actionDeleteManufacturer;
+	private ActionManufacturersDelete actionManufacturersDelete;
+	private ActionManufacturersDeleteTable actionManufacturersDeleteTable;
+	private ActionManufacturersDeleteConfirm actionManufacturersDeleteConfirm;
+	private ActionViewManufacturer actionViewManufacturer;
+	
+	@Autowired
+	public ActionFactory(ActionLogout actionLogout, ActionLogin actionLogin, ActionRegister actionRegister,
+			ActionRegisterSubmit actionRegisterSubmit, ActionManufacturers actionManufacturers,
+			ActionAddManufacturer actionAddManufacturer, ActionManufacturersAdd actionManufacturersAdd,
+			ActionEditManufacturer actionEditManufacturer, ActionManufacturersEdit actionManufacturersEdit,
+			ActionManufacturersEditPIB actionManufacturersEditPIB,
+			ActionManufacturersEditConfirm actionManufacturersEditConfirm,
+			ActionDeleteManufacturer actionDeleteManufacturer, ActionManufacturersDelete actionManufacturersDelete,
+			ActionManufacturersDeleteTable actionManufacturersDeleteTable,
+			ActionManufacturersDeleteConfirm actionManufacturersDeleteConfirm,
+			ActionViewManufacturer actionViewManufacturer) {
+		super();
+		this.actionLogout = actionLogout;
+		this.actionLogin = actionLogin;
+		this.actionRegister = actionRegister;
+		this.actionRegisterSubmit = actionRegisterSubmit;
+		this.actionManufacturers = actionManufacturers;
+		this.actionAddManufacturer = actionAddManufacturer;
+		this.actionManufacturersAdd = actionManufacturersAdd;
+		this.actionEditManufacturer = actionEditManufacturer;
+		this.actionManufacturersEdit = actionManufacturersEdit;
+		this.actionManufacturersEditPIB = actionManufacturersEditPIB;
+		this.actionManufacturersEditConfirm = actionManufacturersEditConfirm;
+		this.actionDeleteManufacturer = actionDeleteManufacturer;
+		this.actionManufacturersDelete = actionManufacturersDelete;
+		this.actionManufacturersDeleteTable = actionManufacturersDeleteTable;
+		this.actionManufacturersDeleteConfirm = actionManufacturersDeleteConfirm;
+		this.actionViewManufacturer = actionViewManufacturer;
+	}
 
-	public static AbstractAction createAction(String method, String path, User loginUser) {
+	public AbstractAction createAction(String method, String path, User loginUser) {
 		System.out.println(path);
 		AbstractAction action = null;
         if(loginUser == null && !path.equals(WebConstants.PATH_LOGIN) && !path.equals(WebConstants.PATH_REGISTER)
         		&& !path.equals(WebConstants.PATH_REGISTER_SUBMIT)) {
-        	action = new ActionLogout();
-			return action;
+			return actionLogout;
         }
 		switch (path) {
-		case WebConstants.PATH_LOGIN:
-			action = new ActionLogin();
-			break;
+		case WebConstants.PATH_LOGIN:;
+			return actionLogin;
 		case WebConstants.PATH_LOGOUT:
-			action = new ActionLogout();
-			break;
+			return actionLogout;
 		case WebConstants.PATH_REGISTER:
-			action = new ActionRegister();
-			break;
+			return actionRegister;
 		case WebConstants.PATH_REGISTER_SUBMIT:
-			action = new ActionRegisterSubmit();
-			break;
+			return actionRegisterSubmit;
 		case WebConstants.PATH_MANUFACTURERS:
-			action = new ActionManufacturers();
-			break;
+			return actionManufacturers;
 		case WebConstants.PATH_MANUFACTURERS_ADD:
-			action = new ActionAddManufacturer();
-			break;
+			return actionAddManufacturer;
 		case WebConstants.PATH_MANUFACTURERS_ADD_CONFIRM:
-			action = new ActionManufacturersAdd();
-			break;
+			return actionManufacturersAdd;
 		case WebConstants.PATH_MANUFACTURERS_NAV_EDIT:
-			action = new ActionEditManufacturer();
-			break;
+			return actionEditManufacturer;
 		case WebConstants.PATH_MANUFACTURERS_PAGE_EDIT:
-			action = new ActionManufacturersEdit();
-			break;
+			return actionManufacturersEdit;
 		case WebConstants.PATH_MANUFACTURERS_EDIT_CONFIRM_PIB:
-			action = new ActionManufacturersEditPIB();
-			break;
+			return actionManufacturersEditPIB;
 		case WebConstants.PATH_MANUFACTURERS_PAGE_EDIT_CONFIRM:
-			action = new ActionManufacturersEditConfirm();
-			break;
+			return actionManufacturersEditConfirm;
 		case WebConstants.PATH_MANUFACTURERS_NAV_DELETE:
-			action = new ActionDeleteManufacturer();
-			break;
+			return actionDeleteManufacturer;
 		case WebConstants.PATH_MANUFACTURERS_PAGE_DELETE:
-			action = new ActionManufacturersDelete();
-			break;
+			return actionManufacturersDelete;
 		case WebConstants.PATH_MANUFACTURERS_TABLE_DELETE:
-			action = new ActionManufacturersDeleteTable();
-			break;
+			return actionManufacturersDeleteTable;
 		case WebConstants.PATH_MANUFACTURERS_PAGE_DELETE_CONFIRM:
-			action = new ActionManufacturersDeleteConfirm();
-			break;
+			return actionManufacturersDeleteConfirm;
 		case WebConstants.PATH_MANUFACTURERS_VIEW:
-			action = new ActionViewManufacturer();
-			break;
+			return actionViewManufacturer;
 
 		default:
 			break;
 		}
 
-		return action;
+		return null;
 	}
 
 }

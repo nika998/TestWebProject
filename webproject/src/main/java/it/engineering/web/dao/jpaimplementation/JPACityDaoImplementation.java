@@ -4,16 +4,19 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.dao.CityDao;
 import it.engineering.web.domain.Mesto;
 
+@Component(value = "cityJpa")
 public class JPACityDaoImplementation implements CityDao{
 	
 	private EntityManager em;	
-
-	public JPACityDaoImplementation(EntityManager em) {
+	
+	public JPACityDaoImplementation() {
 		super();
-		this.em = em;
+		em = EntityManagerFactory.getEntityManager();
 	}
 
 	@Override

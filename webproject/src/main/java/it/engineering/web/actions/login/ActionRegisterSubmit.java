@@ -5,20 +5,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.engineering.web.actions.AbstractAction;
 import it.engineering.web.constants.WebConstants;
 import it.engineering.web.domain.User;
 import it.engineering.web.service.UserService;
 import it.engineering.web.service.implementation.UserServiceImplementation;
 
+@Component
 public class ActionRegisterSubmit extends AbstractAction {
 	
+	@Autowired
 	UserService userService;
-	
-	public ActionRegisterSubmit() {
-		super();
-		userService = new UserServiceImplementation();
-	}
 
 	@Override
 	public String executeRequest(HttpServletRequest request, HttpServletResponse response) {

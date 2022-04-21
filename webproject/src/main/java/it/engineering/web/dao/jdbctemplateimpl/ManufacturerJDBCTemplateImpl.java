@@ -6,23 +6,22 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import it.engineering.web.dao.ManufacturerDao;
 import it.engineering.web.domain.Mesto;
 import it.engineering.web.domain.Proizvodjac;
 
+@Component(value = "manufacturerJdbcTemplate")
 public class ManufacturerJDBCTemplateImpl implements ManufacturerDao {
-
+    
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	private DataSourceFactory dataSourceFactory;
-
-	public ManufacturerJDBCTemplateImpl() {
-		dataSourceFactory = new DataSourceFactory();
-		DataSource dataSource = dataSourceFactory.getDataSource();
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+	@Autowired
+	private ManufacturerMapper manufacturerMapper;
 
 	@Override
 	public void add(Proizvodjac manufacturer) {
@@ -52,12 +51,14 @@ public class ManufacturerJDBCTemplateImpl implements ManufacturerDao {
 	public List<Proizvodjac> getAll() {
 		System.out.println("Get all manufacturers");
 		String query = "select * from Proizvodjac";
-		return jdbcTemplate.query(query, new ManufacturerMapper());
+		return jdbcTemplate.query(query, manufacturerMapper);
 	}
-
+    
+	@Component
 	class ManufacturerMapper implements RowMapper<Proizvodjac> {
-
-		CityJDBCTemplateImpl cityJDBCTemplateImpl = new CityJDBCTemplateImpl();
+        
+		@Autowired
+		CityJDBCTemplateImpl cityJDBCTemplateImpl;
 
 		@Override
 		public Proizvodjac mapRow(ResultSet rs, int rowNum) throws SQLException {

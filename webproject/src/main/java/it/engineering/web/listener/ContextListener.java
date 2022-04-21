@@ -6,6 +6,10 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import it.engineering.web.configuration.MyIoCConfiguration;
 import it.engineering.web.domain.User;
 
 
@@ -33,6 +37,8 @@ public class ContextListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
+    	ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MyIoCConfiguration.class);
+    	sce.getServletContext().setAttribute("application-context", applicationContext);
     	List<User> activeUsers = new ArrayList<>();
 		sce.getServletContext().setAttribute("activeUsers", activeUsers);
          

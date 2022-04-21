@@ -4,17 +4,21 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import it.engineering.web.dao.ManufacturerDao;
 import it.engineering.web.domain.Mesto;
 import it.engineering.web.domain.Proizvodjac;
 
-public class JPAManufacturerDaoImplementation implements ManufacturerDao{
-	
-	private EntityManager em;	
+@Component(value = "manufacturerJpa")
+public class JPAManufacturerDaoImplementation implements ManufacturerDao {
 
-	public JPAManufacturerDaoImplementation(EntityManager em) {
+	private EntityManager em;
+
+	public JPAManufacturerDaoImplementation() {
 		super();
-		this.em = em;
+		em = EntityManagerFactory.getEntityManager();
 	}
 
 	@Override
@@ -22,21 +26,22 @@ public class JPAManufacturerDaoImplementation implements ManufacturerDao{
 		em.getTransaction().begin();
 		em.merge(p);
 		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
 	public void update(Proizvodjac p) {
-		
+
 		em.getTransaction().begin();
 		Mesto city = em.find(Mesto.class, p.getMesto().getPttBroj());
-		if(city == null) em.merge(p);
+		if (city == null)
+			em.merge(p);
 		else {
 			p.setMesto(city);
 			em.merge(city);
 		}
 		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
@@ -44,7 +49,7 @@ public class JPAManufacturerDaoImplementation implements ManufacturerDao{
 		em.getTransaction().begin();
 		em.remove(p);
 		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
