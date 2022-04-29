@@ -1,5 +1,7 @@
 package it.engineering.web.configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,13 @@ public class MyIoCConfiguration {
 	@DependsOn({"dataSource"})
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
+	}
+	
+	@Bean
+	public EntityManager entityManagerFactory() {
+		
+		
+		return Persistence.createEntityManagerFactory("webproject").createEntityManager();
 	}
 
 }

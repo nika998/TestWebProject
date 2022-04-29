@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.engineering.web.dao.CityDao;
@@ -12,12 +13,8 @@ import it.engineering.web.domain.Mesto;
 @Component(value = "cityJpa")
 public class JPACityDaoImplementation implements CityDao{
 	
+	@Autowired
 	private EntityManager em;	
-	
-	public JPACityDaoImplementation() {
-		super();
-		em = EntityManagerFactory.getEntityManager();
-	}
 
 	@Override
 	public void add(Mesto p) {

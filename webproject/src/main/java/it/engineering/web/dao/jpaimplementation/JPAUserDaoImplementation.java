@@ -13,14 +13,9 @@ import it.engineering.web.domain.User;
 
 @Component(value = "userJpa")
 class JPAUserDaoImplementation implements UserDao {
-
-	private EntityManager em;
-
+    
 	@Autowired
-	public JPAUserDaoImplementation() {
-		super();
-		em = EntityManagerFactory.getEntityManager();
-	}
+	private EntityManager em;
 
 	@Override
 	public void add(User p) {
